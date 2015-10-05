@@ -16,17 +16,17 @@ export default class ImagesStore extends Store {
         this.on('get_images', async () => {
             try{
 
-                let response = await fetchUtil.getJSON('http://localhost:3000/');
-                this.images = response.images;
+                // let response = await fetchUtil.getJSON('http://localhost:3000/images/a');
+                // this.images = response.images;
 
-                 //let response = await fetch('http://localhost:3000/images');
-                 //this.images = await response.json();
+                 let response = await fetch('http://localhost:3000/images');
+                 this.images = await response.json();
 
-                //this.images  = await socketUtil.rpc('images::get', {});
+                // this.images  = await socketUtil.rpc('images::get', {});
 
                 if(this.images){
-                    console.log("IMAGES_STORE data: ",this.images);
-                    this.trigger('images_fetched');
+                    console.log("IMAGES_STORE trigger images_fetched, data: ",this.images);
+                    this.trigger('images_fetched', this.images);
                 }else{
                     console.log("IMAGES_STORE error");
                     throw new Error("error fetching images")
@@ -41,5 +41,3 @@ export default class ImagesStore extends Store {
     };
 
 }
-
-

@@ -13,7 +13,6 @@ import Q from 'q';
 import FS from 'fs';
 import _ from 'underscore'
 
-
 import main from '../app/components/main';
 import routes from '../app/routes';
 
@@ -27,7 +26,7 @@ let app = feathers();
 app.use(feathers.static(process.env.APP_BASE_PATH + "/public"));
 
 // Riot app template engine
-app.engine('html', function (filePath, options, callback) { 
+app.engine('html', function (filePath, options, callback) {
     async function render() {
         try {
             let view = riot.render(options.mainTag, options.tagOpts);
@@ -51,10 +50,6 @@ app.set('views', './build/'); // specify the views directory
 app.set('view engine', 'html'); // register the template engine
 
 
-// Client routes
-routes.runRoutingTable(app);
-
-
 // Server routes
 app.configure(
     feathers.rest()
@@ -76,7 +71,10 @@ app.configure(
 .use('/fruit', services.fruit)
 .use('/taste', services.taste)
 .use('/users', services.users)
-.use('/images', services.images)
+.use('/images', services.images);
+
+// Client routes
+routes.runRoutingTable(app);
 
 // Authentication setup
 let userService = app.service('users');
@@ -109,13 +107,13 @@ app.use(function (req, res, next) {
             });
         });
     }
-    renderTest(); 
+    renderTest();
 });
 
 console.log("Starting server");
 
 // Server routes
-let server = 
+let server =
     app.listen(3000, () => {
 
     let host = server.address().address
@@ -123,11 +121,9 @@ let server =
 
     console.log('Node/Feathers app listening at http://%s:%s', host, port);
 
-
     // Init the loopback socket connection
     socketUtil.initWithUrl('http://localhost:3000');
 });
 
 import pictresServer from './pictresServer.js';
 pictresServer.init(server);
-

@@ -13,7 +13,7 @@ class Routes {
             console.log("Initalizing browser dispatcher");
             // On the browser - we generate one global dispatcher and stores instance
             this.browserDispather = new Dispatcher();
-        } 
+        }
     }
 
     waitBeforeRendering(req, list) {
@@ -97,5 +97,3 @@ class Routes {
 // Singleton
 let instance = new Routes();
 export default instance;
-
-

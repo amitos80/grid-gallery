@@ -14,11 +14,10 @@ export default class MainStore extends Store {
             this.trigger("main_state_updated", "login");
         });
 
-        this.on("fruit_swap", (fruit) => { 
+        this.on("fruit_swap", (fruit) => {
             this.state ='mall';
             this.trigger("main_state_updated", "mall");
         });
-    }     
+    }
 
 };
-
